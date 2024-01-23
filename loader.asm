@@ -83,6 +83,9 @@ MEGACART_OLOOP:
 		ld	hl,(SLOT)		; set lower bank slot with dummy read
 		ld	de,(hl)
 
+		ld	a,128			; set record count to 128 (16KB)
+		ld	(RCOUNT),a
+
 		ld	de,GAMEADDR		; set destination to GAMEADDR for slot 0
 		ld	(DEST),de
 		ld	a,l
@@ -103,17 +106,17 @@ MEGACART_ILOOP:
 		ld	de,(DEST)
 		ld	bc,$80
 		ldir
+
 		ld	(DEST),de		; increment next destination address
-		jr	MEGACART_ILOOP
 
-		ld	de,(SLOT)
+		ld	a,(RCOUNT)		; read up to 16KB
+		dec	a
+		ld	(RCOUNT),a
+		or	a
+		jr	nz,MEGACART_ILOOP
 
-		ld	a,e 			; if this is slot 0, skip moving data
-		cp	$e0
-		jr	nz,MEGACART_NEXT
-
-MEGACART_NEXT:
-		inc	de			; next slot
+		ld	de,(SLOT)		; increment slot
+		inc	de
 
 		ld	a,e			; done if slot LSB rolls over to 0
 		or	a
@@ -215,6 +218,7 @@ SUCCESS:	db	"game loaded",CR,LF,EOS
 SLOT0:		db	0			; set for 512KB ROM (has slot 0 content)
 SLOT:		dw	0			; slot pointer
 DEST:		dw	GAMEADDR		; destination pointer
+RCOUNT:		db	0			; record counter
 OLDSP:		dw	0			; original stack pointer
 		ds	$40			; space for stack
 STACK:						; top of stack
