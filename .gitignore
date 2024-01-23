@@ -1,0 +1,9 @@
+# KiCAD
+fp-info-cache
+*-backups/
+
+# Sjasm
+*.out
+*.lst
+
+coleco.rom
