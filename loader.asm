@@ -3,7 +3,7 @@
 ; Works with RomWBW 512K RAM/ROM Board
 ; Incompatible with 64KB Pageable ROM Board due to port conflicts
 ;
-; Assemble with sjasm. ColecoVision BIOS ROM must be in "coleco.rom" 
+; Assemble with sjasm. ColecoVision BIOS ROM must be in "coleco.rom"
 ; in the same directory where loader.asm is assembled.
 ;
 ; CP/M file loader code from https://github.com/MMaciocia/RC2014-YM2149
@@ -198,9 +198,9 @@ REGULAR_EOF:
 		lddr
 
 		ld 	bc,BIOSLEN		; copy ColecoVision BIOS to $0000-$1FFF
-		ld 	hl,BIOS	
-		ld 	de,BOOT	
-		ldir	
+		ld 	hl,BIOS
+		ld 	de,BOOT
+		ldir
 
 		jp 	BOOT			; jump to BIOS entry point
 
