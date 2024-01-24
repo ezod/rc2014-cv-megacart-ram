@@ -24,7 +24,8 @@ FSIZE:		equ	35			; BDOS compute file size function
 BIOSLEN: 	equ	$2000			; length of BIOS
 
 MCRPORT:	equ	$2f			; megacart RAM I/O port
-SLOTBASE:	equ	$ffe0			; slot 0 read address
+SLOTBASEL:	equ	$bfe0			; slot 0 read address (lower)
+SLOTBASEU:	equ	$ffe0			; slot 0 read address (upper)
 
 CR:		equ	$0d			; carriage return
 LF:		equ	$0a			; line feed
@@ -46,16 +47,16 @@ EOS:		equ	'$'			; end of string marker
 		cp	1
 		jp	c,REGULAR		; no bank switching necessary for < 32KB
 
-		ld	de,SLOTBASE+28
+		ld	de,SLOTBASEL+28
 		cp	2
 		jr	c,MEGACART		; 64KB megacart
-		ld	de,SLOTBASE+24
+		ld	de,SLOTBASEL+24
 		cp	4
 		jr	c,MEGACART		; 128KB megacart
-		ld	de,SLOTBASE+16
+		ld	de,SLOTBASEL+16
 		cp	8
 		jr	c,MEGACART		; 256KB megacart
-		ld	de,SLOTBASE
+		ld	de,SLOTBASEL
 		ld	hl,SLOT0		; slot 0 (containing CP/M) to be overwritten
 		ld	(hl),1
 		cp	16
@@ -138,7 +139,7 @@ MEGACART_EOF:
 
 		ld	a,2			; enable upper bank switching
 		out	(MCRPORT),a
-		ld	hl,SLOTBASE		; set upper bank to slot 0 with dummy read
+		ld	hl,SLOTBASEU		; set upper bank to slot 0 with dummy read
 		ld	de,(hl)
 
 		ld	a,(SLOT0)		; check if this is a 512KB ROM
