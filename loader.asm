@@ -15,6 +15,7 @@ FCB:		equ	$5c			; file control block
 FCBCR:		equ	FCB+$20			; FCB current record
 FCBRN:		equ	FCB+$21			; FCB random access record number
 BUFF:		equ	$80			; DMA buffer
+WRITEC:		equ	2			; BDOS print character function
 WRITESTR:	equ	9			; BDOS print string function
 FOPEN:		equ	15			; BDOS open file function
 FCLOSE:		equ	16			; BDOS close file function
@@ -23,7 +24,7 @@ FSIZE:		equ	35			; BDOS compute file size function
 
 BIOSLEN: 	equ	$2000			; length of BIOS
 
-MCRPORT:	equ	$2f			; megacart RAM I/O port
+MCRPORT:	equ	$0f			; megacart RAM I/O port
 SLOTBASEL:	equ	$bfe0			; slot 0 read address (lower)
 SLOTBASEU:	equ	$ffe0			; slot 0 read address (upper)
 
@@ -36,11 +37,17 @@ EOS:		equ	'$'			; end of string marker
 		ld	(OLDSP),sp		; save old stack pointer
 		ld	sp,STACK		; set new stack pointer
 
-		ld	de,FCB			; try to compute file size
-		ld	c,FSIZE
+		ld	de,FCB			; try to open file
+		ld	c,FOPEN
 		call	BDOS
 		inc	a			; 255 indicates failure
 		jp	z,BADFILE
+		xor	a			; clear current record
+		ld	(FCBCR),a
+
+		ld	de,FCB			; compute file size
+		ld	c,FSIZE
+		call	BDOS
 		ld	hl,(FCBRN)
 		dec	hl
 		ld	a,h
@@ -71,14 +78,12 @@ EOS:		equ	'$'			; end of string marker
 MEGACART:
 		ld	(SLOT),de		; store initial slot offset
 
+		ld	de,LOADMC		; print loading message
+		ld	c,WRITESTR
+		call	BDOS
+
 		ld	a,1			; enable lower bank switching
 		out	(MCRPORT),a
-
-		ld	de,FCB			; open file
-		ld	c,FOPEN
-		call	BDOS
-		xor	a			; clear current record
-		ld	(FCBCR),a
 
 MEGACART_OLOOP:
 		ld	hl,(SLOT)		; set lower bank slot with dummy read
@@ -116,17 +121,28 @@ MEGACART_ILOOP:
 		or	a
 		jr	nz,MEGACART_ILOOP
 
+		ld	e,'.'			; print slot load character
+		ld	c,WRITEC
+		call	BDOS
+
 		ld	de,(SLOT)		; increment slot
 		inc	de
 
-		ld	a,e			; done if slot LSB rolls over to 0
-		or	a
+		ld	a,d			; done if slot MSB rolls over to C
+		cp	$c0
 		jr 	z,MEGACART_EOF
 
 		ld	(SLOT),de
 		jr	MEGACART_OLOOP
 
 MEGACART_EOF:
+		ld	e,CR			; print carriage return and linefeed
+		ld	c,WRITEC
+		call	BDOS
+		ld	e,LF
+		ld	c,WRITEC
+		call	BDOS
+
 		ld	de,FCB			; close the file
 		ld	c,FCLOSE
 		call	BDOS
@@ -160,11 +176,10 @@ MEGACART_CVBIOS:
 		jp 	BOOT			; jump to BIOS entry point
 
 REGULAR:
-		ld	de,FCB			; open file
-		ld	c,FOPEN
+		ld	de,LOADRG		; print loading message
+		ld	c,WRITESTR
 		call	BDOS
-		xor	a			; clear current record
-		ld	(FCBCR),a
+
 		ld	de,GAMEADDR		; set destination address
 		ld	(DEST),de
 
@@ -214,6 +229,8 @@ BADFILE:
 
 NOFILE:		db 	"file not found",CR,LF,EOS
 LGFILE:		db	"file too large",CR,LF,EOS
+LOADRG:		db	"loading regular game",CR,LF,EOS
+LOADMC:		db	"loading MegaCart game",CR,LF,EOS
 SUCCESS:	db	"game loaded",CR,LF,EOS
 
 SLOT0:		db	0			; set for 512KB ROM (has slot 0 content)
