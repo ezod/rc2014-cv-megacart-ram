@@ -118,7 +118,6 @@ MEGACART_ILOOP:
 		ld	a,(RCOUNT)		; read up to 16KB
 		dec	a
 		ld	(RCOUNT),a
-		or	a
 		jr	nz,MEGACART_ILOOP
 
 		ld	e,'.'			; print slot load character
@@ -127,11 +126,9 @@ MEGACART_ILOOP:
 
 		ld	de,(SLOT)		; increment slot
 		inc	de
-
 		ld	a,d			; done if slot MSB rolls over to C
 		cp	$c0
 		jr 	z,MEGACART_EOF
-
 		ld	(SLOT),de
 		jr	MEGACART_OLOOP
 
