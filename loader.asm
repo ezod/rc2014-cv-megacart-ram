@@ -89,16 +89,17 @@ MEGACART:
 		ld	a,1			; enable lower bank switching
 		out	(MCRPORT),a
 
-MEGACART_OLOOP:
-		ld	hl,(SLOT)		; set lower bank slot with dummy read
-		ld	a,(hl)
+		ld	de,GAMEADDR		; set destination to GAMEADDR for slot 0
+		ld	(DEST),de
 
+MEGACART_OLOOP:
 		ld	a,128			; set record count to 128 (16KB)
 		ld	(RCOUNT),a
 
-		ld	de,GAMEADDR		; set destination to GAMEADDR for slot 0
-		ld	(DEST),de
-		ld	a,l
+		ld	hl,(SLOT)		; set lower bank slot with dummy read
+		ld	a,(hl)
+
+		ld	a,l			; skip setting destination for slot 0
 		cp	$e0
 		jr	z,MEGACART_ILOOP
 
@@ -130,8 +131,8 @@ MEGACART_ILOOP:
 
 		ld	de,(SLOT)		; increment slot
 		inc	de
-		ld	a,d			; done if slot MSB rolls over to C
-		cp	$c0
+		ld	a,e			; done if slot LSB rolls over to 0
+		cp	$00
 		jr 	z,MEGACART_EOF
 		ld	(SLOT),de
 		jr	MEGACART_OLOOP
