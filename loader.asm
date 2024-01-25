@@ -148,6 +148,26 @@ MEGACART_EOF:
 		ld	c,FCLOSE
 		call	BDOS
 
+		ld	a,0			; disable lower bank switching
+		out	(MCRPORT),a
+
+		ld	a,($8000)		; verify magic number
+		cp	$55
+		jr	z,MEGACART_55
+		cp	$aa
+		jr	z,MEGACART_AA
+MEGACART_55:
+		ld	a,($8001)
+		cp	$aa
+		jr	z,MEGACART_LOADED
+		jr	MEGACART_FAIL
+MEGACART_AA:
+		ld	a,($8001)
+		cp	$55
+		jr	z,MEGACART_LOADED
+		jr	MEGACART_FAIL
+
+MEGACART_LOADED:
 		ld	de,SUCCESS		; tell user that game was loaded
 		ld	c,WRITESTR
 		call	BDOS
@@ -178,6 +198,13 @@ MEGACART_CVBIOS:
 		ldir
 
 		jp 	BOOT			; jump to BIOS entry point
+
+MEGACART_FAIL:
+		ld	de,MEGACARTERR
+		ld	c,WRITESTR
+		call 	BDOS
+		ld	sp,(OLDSP)		; restore stack pointer
+		ret				; return to CP/M
 
 REGULAR:
 		ld	de,LOADRG		; print loading message
@@ -235,6 +262,7 @@ NOFILE:		db 	"file not found",CR,LF,EOS
 LGFILE:		db	"file too large",CR,LF,EOS
 LOADRG:		db	"loading regular game",CR,LF,EOS
 LOADMC:		db	"loading MegaCart game",CR,LF,EOS
+MEGACARTERR:	db	"error loading MegaCart",CR,LF,EOS
 SUCCESS:	db	"game loaded",CR,LF,EOS
 
 SLOT0:		db	0			; set for 512KB ROM (has slot 0 content)
