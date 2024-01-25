@@ -91,7 +91,7 @@ MEGACART:
 
 MEGACART_OLOOP:
 		ld	hl,(SLOT)		; set lower bank slot with dummy read
-		ld	de,(hl)
+		ld	a,(hl)
 
 		ld	a,128			; set record count to 128 (16KB)
 		ld	(RCOUNT),a
@@ -180,7 +180,7 @@ MEGACART_LOADED:
 		ld	de,(SLOTF)		; set upper bank to first slot with dummy read
 		ld	hl,SLOTBASEU
 		add	hl,de
-		ld	de,(hl)
+		ld	a,(hl)
 
 		ld	a,(SLOT0)		; check if this is a 512KB ROM
 		or	a
