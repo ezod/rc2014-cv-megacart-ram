@@ -193,12 +193,27 @@ MEGACART_LOADED:
 		lddr
 
 MEGACART_CVBIOS:
-		ld 	bc,BIOSLEN		; copy ColecoVision BIOS to $0000-$1FFF
-		ld 	hl,BIOS
-		ld 	de,BOOT
-		ldir
-
-		jp 	BOOT			; jump to BIOS entry point
+		ld	a,$01			; ld bc,BIOSLEN
+		ld	(GAMEADDR),a
+		ld	de,BIOSLEN
+		ld	(GAMEADDR+1),de
+		ld	a,$21			; ld hl,BIOS
+		ld	(GAMEADDR+3),a
+		ld	de,BIOS
+		ld	(GAMEADDR+4),de
+		ld	a,$11			; ld de,BOOT
+		ld	(GAMEADDR+6),a
+		ld	de,BOOT
+		ld	(GAMEADDR+7),de
+		ld	a,$ed			; ldir
+		ld	(GAMEADDR+9),a
+		ld	a,$b0
+		ld	(GAMEADDR+10),a
+		ld	a,$c3			; jp BOOT
+		ld	(GAMEADDR+11),a
+		ld	de,BOOT
+		ld	(GAMEADDR+12),de
+		jp	GAMEADDR
 
 MEGACART_FAIL:
 		ld	de,MEGACARTERR
