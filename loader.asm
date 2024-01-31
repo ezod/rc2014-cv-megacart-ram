@@ -1,13 +1,15 @@
 ; ColecoVision Game Loader for CP/M on RC2014
 ;
 ; Works with RomWBW 512K RAM/ROM Board
-; Incompatible with 64KB Pageable ROM Board due to port conflicts
+; Incompatible with stock 64KB Pageable ROM Board due to port conflicts
+; See https://github.com/jblang/TMS9918A/issues/12 for a hack!
 ;
 ; Assemble with sjasm. ColecoVision BIOS ROM must be in "coleco.rom"
 ; in the same directory where loader.asm is assembled.
 ;
 ; CP/M file loader code from https://github.com/MMaciocia/RC2014-YM2149
 ; Modified to load ColecoVision games by J.B. Langston
+; MegaCart support and other enhancements by Aaron Mavrinac
 
 BOOT:		equ	0			; boot location
 BDOS:		equ	5			; BDOS entry point
@@ -185,35 +187,14 @@ MEGACART_LOADED:
 
 		ld	a,(R512)		; check if this is a 512KB ROM
 		or	a
-		jr	z,MEGACART_CVBIOS
+		jr	z,LD_BIOS_BOOT		; if not, load ColecoVision BIOS and boot
 
 		ld 	bc,$4000		; move first 16KB of 512KB ROM to slot 0
 		ld 	hl,GAMEADDR+$4000-1
 		ld 	de,$ffff
 		lddr
 
-MEGACART_CVBIOS:
-		ld	a,$01			; ld bc,BIOSLEN
-		ld	(GAMEADDR),a
-		ld	de,BIOSLEN
-		ld	(GAMEADDR+1),de
-		ld	a,$21			; ld hl,BIOS
-		ld	(GAMEADDR+3),a
-		ld	de,BIOS
-		ld	(GAMEADDR+4),de
-		ld	a,$11			; ld de,BOOT
-		ld	(GAMEADDR+6),a
-		ld	de,BOOT
-		ld	(GAMEADDR+7),de
-		ld	a,$ed			; ldir
-		ld	(GAMEADDR+9),a
-		ld	a,$b0
-		ld	(GAMEADDR+10),a
-		ld	a,$c3			; jp BOOT
-		ld	(GAMEADDR+11),a
-		ld	de,BOOT
-		ld	(GAMEADDR+12),de
-		jp	GAMEADDR
+		jr	LD_BIOS_BOOT		; load ColecoVision BIOS and boot
 
 MEGACART_FAIL:
 		ld	de,MEGACARTERR
@@ -260,12 +241,21 @@ REGULAR_EOF:
 		ld 	de,$ffff
 		lddr
 
+LD_BIOS_BOOT:
+		ld	bc,LD_BIOS_END-LD_BIOS	; move BIOS load code up to GAMEADDR space
+		ld	hl,LD_BIOS		; (so as not to overwrite it with BIOS)
+		ld	de,GAMEADDR
+		ldir
+
+		jp	GAMEADDR		; run BIOS load and boot
+
+LD_BIOS:
 		ld 	bc,BIOSLEN		; copy ColecoVision BIOS to $0000-$1FFF
 		ld 	hl,BIOS
 		ld 	de,BOOT
 		ldir
-
 		jp 	BOOT			; jump to BIOS entry point
+LD_BIOS_END:	equ	$
 
 BADFILE:
 		ld	de,NOFILE		; print error if file is not found
