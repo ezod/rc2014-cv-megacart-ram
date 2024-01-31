@@ -64,7 +64,7 @@ EOS:		equ	'$'			; end of string marker
 		cp	8
 		jr	c,MEGACART		; 256KB megacart
 		ld	de,0
-		ld	hl,SLOT0		; slot 0 (containing CP/M) to be overwritten
+		ld	hl,R512			; slot 0 (containing CP/M) to be overwritten
 		ld	(hl),1
 		cp	16
 		jr	c,MEGACART		; 512KB megacart
@@ -76,7 +76,7 @@ EOS:		equ	'$'			; end of string marker
 		ret				; return to CP/M
 
 MEGACART:
-		ld	(SLOTF),de		; store first slot offset
+		ld	(SLOT0),de		; store first slot offset
 
 		ld	hl,SLOTBASEL		; initialize slot
 		add	hl,de
@@ -178,12 +178,12 @@ MEGACART_LOADED:
 		ld	a,2			; enable upper bank switching
 		out	(MCRPORT),a
 
-		ld	de,(SLOTF)		; set upper bank to first slot with dummy read
+		ld	de,(SLOT0)		; set upper bank to first slot with dummy read
 		ld	hl,SLOTBASEU
 		add	hl,de
 		ld	a,(hl)
 
-		ld	a,(SLOT0)		; check if this is a 512KB ROM
+		ld	a,(R512)		; check if this is a 512KB ROM
 		or	a
 		jr	z,MEGACART_CVBIOS
 
@@ -266,8 +266,8 @@ LOADMC:		db	"loading MegaCart game",CR,LF,EOS
 MEGACARTERR:	db	"error loading MegaCart",CR,LF,EOS
 SUCCESS:	db	"game loaded",CR,LF,EOS
 
-SLOT0:		db	0			; set for 512KB ROM (has slot 0 content)
-SLOTF:		dw	0			; first slot offset
+R512:		db	0			; set for 512KB ROM
+SLOT0:		dw	0			; first slot offset
 SLOT:		dw	0			; slot pointer
 DEST:		dw	GAMEADDR		; destination pointer
 RCOUNT:		db	0			; record counter
