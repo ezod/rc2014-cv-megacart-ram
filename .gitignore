@@ -3,6 +3,7 @@ fp-info-cache
 *-bak
 *-backups/
 \#*\#
+_autosave-*
 
 # Sjasm
 *.out
