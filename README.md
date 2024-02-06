@@ -16,16 +16,16 @@ On the ColecoVision MegaCart, bank switching is always enabled on the upper 16KB
 
 | Reference | Part |
 |-|-|
-| U1 | AS6C62256 |
-| U2 | AS6C4008 |
-| U3 | 74HCT74 |
-| U4-U5 | 74HCT21 |
-| U6 | 74HCT02 |
-| U7 | 74HCT04 |
-| U8-U9 | 74HCT08 |
-| U10-U11 | 74HCT32 |
-| U12 | 74HCT138 |
-| U13 | 74HCT273 |
+| U1 | AS6C62256 32K x 8 SRAM |
+| U2 | AS6C4008 512K x 8 SRAM |
+| U3 | 74HCT74 dual D-type flip-flop |
+| U4-U5 | 74HCT21 dual 4-input AND gate |
+| U6 | 74HCT02 quad NOR gate |
+| U7 | 74HCT04 hex inverter |
+| U8-U9 | 74HCT08 quad AND gate |
+| U10-U11 | 74HCT32 quad OR gate |
+| U12 | 74HCT138 3-to-8 line decoder |
+| U13 | 74HCT273 octal D-type flip-flop |
 | C1-C13 | 0.1uF disc/MLCC capacitor |
 | J1 | 2x8 straight pin header |
 | BUS | 2x40 right angle pin header |
