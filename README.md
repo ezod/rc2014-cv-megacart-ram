@@ -4,13 +4,17 @@ This is a RAM module for [RC2014](https://rc2014.co.uk/) computers designed to p
 
 ## How It Works
 
-The module is essentially a drop-in replacement for a standard [RC2014 64k RAM](https://rc2014.co.uk/modules/64k-ram/) module configured to use the full 64KB.
+The module is essentially a drop-in replacement for a standard [RC2014 64k RAM](https://rc2014.co.uk/modules/64k-ram/) module configured to use the full 64KB address space.
 
 The lower 32KB works exactly as in the standard module, including the page pin.
 
-Initially on power-up, the upper 32KB also works exactly as in the standard module. However, upper memory actually uses a 512KB RAM, which is divided into 32 16KB banks. Bank switching can be enabled for either the lower 16KB or the upper 16KB by writing to an I/O port. With bank switching enabled for one of these ranges, a read from one of the highest 32 addresses in the range will page in the corresponding bank.
+Initially on power-up, the upper 32KB also works exactly as in the standard module. However, upper memory actually uses a 512KB RAM, which is divided into 32 16KB banks. Bank switching can be toggled for either the lower 16KB or the upper 16KB by writing to a configurable I/O port. Writing a 0 or 1 to D0 or D1 disables or enables bank switching on the lower 16KB or the upper 16KB, respectively. In other words, 0 disables bank switching, 1 enables it for the lower 16KB, and 2 enables it for the upper 16KB. (It is technically possible to enable bank switching for both ranges, but they will then both point at the same bank.)
 
-On the ColecoVision MegaCart, bank switching is always enabled on the upper 16KB, and the lower 16KB always points at the highest bank. The additional functionality of this module allows it to be used as a normal 64KB of RAM (without strange effects from unwanted bank switching), and is also necessary to keep CP/M resident in upper memory while ROM files are loaded into the banks.
+With bank switching enabled for one of these ranges, any read from one of the upper 32 addresses in the range (BFE0-BFFF for the lower 16KB, FFE0-FFFF for the upper 16KB) will page in the corresponding bank. By default (i.e. with bank switching disabled), for compatibility with the MegaCart, with banks numbered from 0 to 31, the lower 16KB uses bank 31, and the upper 16KB uses bank 0.
+
+On the ColecoVision MegaCart, bank switching is always enabled on the upper 16KB (bank 0 at boot), and the lower 16KB always points at bank 31. The additional functionality of this module allows it to be used as a normal 64KB of RAM (without strange effects from unwanted bank switching), and is also necessary to keep CP/M resident in upper memory while ROM files are read from disk and loaded into the other banks.
+
+J1 configures the write-only I/O port to one of, from top to bottom (A0 not decoded): 0E/0F, 2E/2F, 4E/4F, 6E/6F, 8E/8F, AE/AF, CE/CF, EE/EF.
 
 ## Bill of Materials
 
