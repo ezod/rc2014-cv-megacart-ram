@@ -57,17 +57,23 @@ EOS:		equ	'$'			; end of string marker
 		jp	c,REGULAR		; no bank switching necessary for < 32KB
 
 		ld	de,28
+		ld	hl,MSIZE		; store size
+		ld	(hl),56
 		cp	2
 		jr	c,MEGACART		; 64KB megacart
 		ld	de,24
+		ld	hl,MSIZE		; store size
+		ld	(hl),48
 		cp	4
 		jr	c,MEGACART		; 128KB megacart
 		ld	de,16
+		ld	hl,MSIZE		; store size
+		ld	(hl),32
 		cp	8
 		jr	c,MEGACART		; 256KB megacart
 		ld	de,0
-		ld	hl,R512			; slot 0 (containing CP/M) to be overwritten
-		ld	(hl),1
+		ld	hl,MSIZE		; store size
+		ld	(hl),0
 		cp	16
 		jr	c,MEGACART		; 512KB megacart
 
@@ -177,7 +183,8 @@ MEGACART_LOADED:
 
 		di				; don't need interrupts anymore
 
-		ld	a,2			; enable upper bank switching
+		ld	a,(MSIZE)		; enable upper bank switching with mirroring
+		add	a,2
 		out	(MCRPORT),a
 
 		ld	de,(SLOT0)		; set upper bank to first slot with dummy read
@@ -185,9 +192,9 @@ MEGACART_LOADED:
 		add	hl,de
 		ld	a,(hl)
 
-		ld	a,(R512)		; check if this is a 512KB ROM
+		ld	a,(MSIZE)		; check if this is a 512KB ROM
 		or	a
-		jr	z,LD_BIOS_BOOT		; if not, load ColecoVision BIOS and boot
+		jr	nz,LD_BIOS_BOOT		; if not, load ColecoVision BIOS and boot
 
 		ld 	bc,$4000		; move first 16KB of 512KB ROM to slot 0
 		ld 	hl,GAMEADDR+$4000-1
@@ -271,7 +278,7 @@ LOADMC:		db	"loading MegaCart game",CR,LF,EOS
 MEGACARTERR:	db	"error loading MegaCart",CR,LF,EOS
 SUCCESS:	db	"game loaded",CR,LF,EOS
 
-R512:		db	0			; set for 512KB ROM
+MSIZE:		db	0			; megacart size
 SLOT0:		dw	0			; first slot offset
 SLOT:		dw	0			; slot pointer
 DEST:		dw	GAMEADDR		; destination pointer
