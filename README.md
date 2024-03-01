@@ -2,6 +2,8 @@
 
 This is a RAM module for [RC2014](https://rc2014.co.uk/) computers designed to provide bank-switching compatible with Opcode Games' [MegaCart](https://forums.atariage.com/topic/216354-colecovision-megacart-faq/). With the provided loader, both ordinary ColecoVision ROMs and MegaCart ROMs up to 512KB can be run from memory.
 
+![pcb](pcb.png)
+
 ## How It Works
 
 The module is essentially a drop-in replacement for a standard [RC2014 64k RAM](https://rc2014.co.uk/modules/64k-ram/) module configured to use the full 64KB address space.
