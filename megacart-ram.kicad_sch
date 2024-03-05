@@ -4425,7 +4425,7 @@
   (symbol (lib_id "Device:C") (at 48.514 153.416 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 056cef12-1384-4c87-9094-fd65a4fc9eeb)
-    (property "Reference" "C4" (id 0) (at 47.244 150.876 0)
+    (property "Reference" "C5" (id 0) (at 47.244 150.876 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 48.514 155.956 0)
@@ -4462,7 +4462,7 @@
   (symbol (lib_id "74xx:7402") (at 231.14 40.64 0) (unit 2)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 08efdab7-dd4d-415b-9a3b-b9ac8df00c19)
-    (property "Reference" "U6" (id 0) (at 231.14 31.75 0))
+    (property "Reference" "U12" (id 0) (at 231.14 31.75 0))
     (property "Value" "74HCT02" (id 1) (at 231.14 34.29 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 231.14 40.64 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -4560,7 +4560,7 @@
   (symbol (lib_id "74xx:74HC04") (at 129.54 35.56 0) (unit 5)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 1601cf31-01cf-485c-8f1f-797e3cdc752a)
-    (property "Reference" "U3" (id 0) (at 129.54 26.67 0))
+    (property "Reference" "U13" (id 0) (at 129.54 26.67 0))
     (property "Value" "74HCT04" (id 1) (at 129.54 29.21 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 129.54 35.56 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -4676,7 +4676,7 @@
   (symbol (lib_id "74xx:74HC04") (at 91.44 146.05 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 2261878b-0f4a-4ac6-a78f-b2b6816b408c)
-    (property "Reference" "U3" (id 0) (at 91.44 137.16 0))
+    (property "Reference" "U13" (id 0) (at 91.44 137.16 0))
     (property "Value" "74HCT04" (id 1) (at 91.44 139.7 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 91.44 146.05 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -4741,7 +4741,7 @@
   (symbol (lib_id "74xx:74HC273") (at 142.24 91.44 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 2ab0cdef-3157-4105-946f-bd107ad3a90b)
-    (property "Reference" "U13" (id 0) (at 144.2594 71.12 0)
+    (property "Reference" "U3" (id 0) (at 144.2594 71.12 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "74HCT273" (id 1) (at 144.2594 73.66 0)
@@ -4826,7 +4826,7 @@
   (symbol (lib_id "Device:C") (at 58.674 153.416 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 2d95ec9c-35a8-45cd-b2d3-5503c7045c8d)
-    (property "Reference" "C6" (id 0) (at 57.404 150.876 0)
+    (property "Reference" "C12" (id 0) (at 57.404 150.876 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 58.674 155.956 0)
@@ -4877,7 +4877,7 @@
   (symbol (lib_id "Memory_RAM:AS6C4008-55PCN") (at 259.08 111.76 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 31e08896-1992-4725-96d9-9d2728bca7a3)
-    (property "Reference" "U1" (id 0) (at 261.0994 81.28 0)
+    (property "Reference" "U2" (id 0) (at 261.0994 81.28 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "AS6C4008-55PCN" (id 1) (at 261.0994 83.82 0)
@@ -4926,7 +4926,7 @@
   (symbol (lib_id "74xx:74LS21") (at 111.76 101.6 0) (unit 2)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 322bbe7e-2df4-4b78-87ec-a4ecf7564d4b)
-    (property "Reference" "U5" (id 0) (at 111.76 91.44 0))
+    (property "Reference" "U6" (id 0) (at 111.76 91.44 0))
     (property "Value" "74HCT21" (id 1) (at 111.76 93.98 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 111.76 101.6 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -5028,7 +5028,7 @@
   (symbol (lib_id "Device:C") (at 63.754 173.736 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 433b4ed6-f448-474d-a562-648ba3a938d4)
-    (property "Reference" "C14" (id 0) (at 62.484 171.196 0)
+    (property "Reference" "C4" (id 0) (at 62.484 171.196 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 63.754 176.276 0)
@@ -5143,7 +5143,7 @@
   (symbol (lib_id "74xx:74HC273") (at 195.58 40.64 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 579f77ed-06cb-4636-90a8-76a0c0a9c3db)
-    (property "Reference" "U14" (id 0) (at 197.5994 20.32 0)
+    (property "Reference" "U4" (id 0) (at 197.5994 20.32 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "74HCT273" (id 1) (at 197.5994 22.86 0)
@@ -5212,7 +5212,7 @@
   (symbol (lib_id "74xx:74HC04") (at 71.12 127 0) (unit 3)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 5ed97d5a-ac0a-4372-b5a5-8d42a437b3b6)
-    (property "Reference" "U3" (id 0) (at 71.12 118.11 0))
+    (property "Reference" "U13" (id 0) (at 71.12 118.11 0))
     (property "Value" "74HCT04" (id 1) (at 71.12 120.65 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 71.12 127 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -5259,7 +5259,7 @@
   (symbol (lib_id "74xx:74LS21") (at 86.36 113.03 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 683cb3ed-1cd9-47d6-94c5-badcd07e30d8)
-    (property "Reference" "U5" (id 0) (at 86.36 101.6 0))
+    (property "Reference" "U6" (id 0) (at 86.36 101.6 0))
     (property "Value" "74HCT21" (id 1) (at 86.36 104.14 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 86.36 113.03 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -5292,7 +5292,7 @@
   (symbol (lib_id "74xx:74LS138") (at 91.44 48.26 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 69065d9e-ed61-46e0-9b22-4651709a6f1e)
-    (property "Reference" "U12" (id 0) (at 93.4594 33.02 0)
+    (property "Reference" "U14" (id 0) (at 93.4594 33.02 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "74HCT138" (id 1) (at 93.4594 35.56 0)
@@ -5357,7 +5357,7 @@
   (symbol (lib_id "Memory_RAM:HM62256BLP") (at 134.62 154.94 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 6cb565f7-6e97-4f1d-8096-70a857ae2e5a)
-    (property "Reference" "U2" (id 0) (at 136.6394 129.54 0)
+    (property "Reference" "U1" (id 0) (at 136.6394 129.54 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "AS6C62256-55PCN" (id 1) (at 136.6394 132.08 0)
@@ -5420,7 +5420,7 @@
   (symbol (lib_id "Device:C") (at 53.594 173.736 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 712bcb6c-eb83-4484-b244-af7bd6a39522)
-    (property "Reference" "C12" (id 0) (at 52.324 171.196 0)
+    (property "Reference" "C14" (id 0) (at 52.324 171.196 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 53.594 176.276 0)
@@ -5471,7 +5471,7 @@
   (symbol (lib_id "Device:C") (at 53.594 153.416 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 74d1be10-4b5e-4ee2-9454-d63d3bb89bc5)
-    (property "Reference" "C5" (id 0) (at 52.324 150.876 0)
+    (property "Reference" "C6" (id 0) (at 52.324 150.876 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 53.594 155.956 0)
@@ -5490,7 +5490,7 @@
   (symbol (lib_id "74xx:74LS21") (at 86.36 100.33 0) (unit 2)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 7549201d-c0de-43b7-a894-946c0e7015b0)
-    (property "Reference" "U4" (id 0) (at 86.36 88.9 0))
+    (property "Reference" "U5" (id 0) (at 86.36 88.9 0))
     (property "Value" "74HCT21" (id 1) (at 86.36 91.44 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 86.36 100.33 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -5581,7 +5581,7 @@
   (symbol (lib_id "74xx:7402") (at 48.26 238.76 0) (unit 5)
     (in_bom yes) (on_board yes)
     (uuid 80389ac3-5a6e-4b90-82b2-a7de70797361)
-    (property "Reference" "U6" (id 0) (at 80.01 237.4899 0)
+    (property "Reference" "U12" (id 0) (at 80.01 237.4899 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "74HCT02" (id 1) (at 80.01 240.0299 0)
@@ -5600,7 +5600,7 @@
   (symbol (lib_id "74xx:7402") (at 231.14 55.88 0) (unit 3)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 8158a8c7-2047-4572-9da9-601a5a2e6558)
-    (property "Reference" "U6" (id 0) (at 231.14 46.99 0))
+    (property "Reference" "U12" (id 0) (at 231.14 46.99 0))
     (property "Value" "74HCT02" (id 1) (at 231.14 49.53 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 231.14 55.88 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -5757,7 +5757,7 @@
   (symbol (lib_id "Device:C") (at 33.274 153.416 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 957d1369-852b-4087-8dc9-c182c0cd5e7b)
-    (property "Reference" "C1" (id 0) (at 32.004 150.876 0)
+    (property "Reference" "C2" (id 0) (at 32.004 150.876 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 33.274 155.956 0)
@@ -5808,7 +5808,7 @@
   (symbol (lib_id "74xx:7402") (at 62.23 104.14 270) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 97f29191-fc63-402a-96a7-b8716669ba7c)
-    (property "Reference" "U6" (id 0) (at 67.31 102.8699 90)
+    (property "Reference" "U12" (id 0) (at 67.31 102.8699 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "74HCT02" (id 1) (at 67.31 105.4099 90)
@@ -5828,7 +5828,7 @@
   (symbol (lib_id "74xx:74HC04") (at 175.26 157.48 180) (unit 6)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 9d5ccb21-89b5-433c-ae5e-0c08463ea0a9)
-    (property "Reference" "U3" (id 0) (at 175.26 148.59 0))
+    (property "Reference" "U13" (id 0) (at 175.26 148.59 0))
     (property "Value" "74HCT04" (id 1) (at 175.26 151.13 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 175.26 157.48 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -5923,7 +5923,7 @@
   (symbol (lib_id "Device:C") (at 58.674 173.736 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ab78775e-357f-422e-bfa8-ad3e17c6e985)
-    (property "Reference" "C13" (id 0) (at 57.404 171.196 0)
+    (property "Reference" "C3" (id 0) (at 57.404 171.196 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 58.674 176.276 0)
@@ -6006,7 +6006,7 @@
   (symbol (lib_id "74xx:7402") (at 251.46 48.26 0) (unit 4)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid b11df38c-0641-401a-8fe8-5d38e62fd54b)
-    (property "Reference" "U6" (id 0) (at 251.46 39.37 0))
+    (property "Reference" "U12" (id 0) (at 251.46 39.37 0))
     (property "Value" "74HCT02" (id 1) (at 251.46 41.91 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 251.46 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -6054,7 +6054,7 @@
   (symbol (lib_id "74xx:74LS21") (at 22.86 238.76 0) (unit 3)
     (in_bom yes) (on_board yes)
     (uuid b72a3816-1562-4b57-95a6-e7fe60a6e0a3)
-    (property "Reference" "U4" (id 0) (at 22.86 227.33 0))
+    (property "Reference" "U5" (id 0) (at 22.86 227.33 0))
     (property "Value" "74HCT21" (id 1) (at 22.86 229.87 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 22.86 238.76 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -6069,7 +6069,7 @@
   (symbol (lib_id "74xx:74LS21") (at 86.36 87.63 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid b77e96c0-261d-4a2c-8886-f0bb93cb87c4)
-    (property "Reference" "U4" (id 0) (at 86.36 76.2 0))
+    (property "Reference" "U5" (id 0) (at 86.36 76.2 0))
     (property "Value" "74HCT21" (id 1) (at 86.36 78.74 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 86.36 87.63 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -6171,7 +6171,7 @@
   (symbol (lib_id "Device:C") (at 38.354 153.416 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid bddaf43e-3af8-4afc-ba50-8e2bbb1addbd)
-    (property "Reference" "C2" (id 0) (at 37.084 150.876 0)
+    (property "Reference" "C1" (id 0) (at 37.084 150.876 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 38.354 155.956 0)
@@ -6224,7 +6224,7 @@
   (symbol (lib_id "74xx:74HC04") (at 251.46 60.96 0) (unit 4)
     (in_bom yes) (on_board yes)
     (uuid c06fcb34-4487-4291-ae1e-8815f7332940)
-    (property "Reference" "U3" (id 0) (at 251.46 52.07 0))
+    (property "Reference" "U13" (id 0) (at 251.46 52.07 0))
     (property "Value" "74HCT04" (id 1) (at 251.46 54.61 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 251.46 60.96 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -6353,7 +6353,7 @@
   (symbol (lib_id "74xx:74HC04") (at 10.16 238.76 0) (unit 7)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid c69e2101-c2fe-4957-bf66-2b13826bd977)
-    (property "Reference" "U3" (id 0) (at 16.51 237.4899 0)
+    (property "Reference" "U13" (id 0) (at 16.51 237.4899 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "74HCT04" (id 1) (at 16.51 240.0299 0)
@@ -6565,7 +6565,7 @@
   (symbol (lib_id "Device:C") (at 43.434 153.416 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid dfd8edbc-f123-476f-b8cf-ecaa3de3f46b)
-    (property "Reference" "C3" (id 0) (at 42.164 150.876 0)
+    (property "Reference" "C13" (id 0) (at 42.164 150.876 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "C" (id 1) (at 43.434 155.956 0)
@@ -6679,7 +6679,7 @@
   (symbol (lib_id "74xx:74HC04") (at 91.44 160.02 0) (unit 2)
     (in_bom yes) (on_board yes)
     (uuid f0fd1413-053d-446f-b316-22141f8ad9e8)
-    (property "Reference" "U3" (id 0) (at 91.44 151.13 0))
+    (property "Reference" "U13" (id 0) (at 91.44 151.13 0))
     (property "Value" "74HCT04" (id 1) (at 91.44 153.67 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 91.44 160.02 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -6726,7 +6726,7 @@
   (symbol (lib_id "74xx:74LS21") (at 35.56 238.76 0) (unit 3)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid f895145c-011f-4a90-bfe6-876425ec0b2e)
-    (property "Reference" "U5" (id 0) (at 35.56 227.33 0))
+    (property "Reference" "U6" (id 0) (at 35.56 227.33 0))
     (property "Value" "74HCT21" (id 1) (at 35.56 229.87 0))
     (property "Footprint" "Package_DIP:DIP-14_W7.62mm" (id 2) (at 35.56 238.76 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -6966,22 +6966,22 @@
     (path "/89e0d19d-c756-4ab0-ae0e-ff7390bbf7f6"
       (reference "BUS2") (unit 1) (value "Conn_01x10") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical")
     )
-    (path "/957d1369-852b-4087-8dc9-c182c0cd5e7b"
+    (path "/bddaf43e-3af8-4afc-ba50-8e2bbb1addbd"
       (reference "C1") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/bddaf43e-3af8-4afc-ba50-8e2bbb1addbd"
+    (path "/957d1369-852b-4087-8dc9-c182c0cd5e7b"
       (reference "C2") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/dfd8edbc-f123-476f-b8cf-ecaa3de3f46b"
+    (path "/ab78775e-357f-422e-bfa8-ad3e17c6e985"
       (reference "C3") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/056cef12-1384-4c87-9094-fd65a4fc9eeb"
+    (path "/433b4ed6-f448-474d-a562-648ba3a938d4"
       (reference "C4") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/74d1be10-4b5e-4ee2-9454-d63d3bb89bc5"
+    (path "/056cef12-1384-4c87-9094-fd65a4fc9eeb"
       (reference "C5") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/2d95ec9c-35a8-45cd-b2d3-5503c7045c8d"
+    (path "/74d1be10-4b5e-4ee2-9454-d63d3bb89bc5"
       (reference "C6") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
     (path "/33efc350-4130-4e2f-8abf-080cfd7965b6"
@@ -6999,77 +6999,47 @@
     (path "/7623921d-3f95-4177-8a76-3cfe9adfdd1d"
       (reference "C11") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/712bcb6c-eb83-4484-b244-af7bd6a39522"
+    (path "/2d95ec9c-35a8-45cd-b2d3-5503c7045c8d"
       (reference "C12") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/ab78775e-357f-422e-bfa8-ad3e17c6e985"
+    (path "/dfd8edbc-f123-476f-b8cf-ecaa3de3f46b"
       (reference "C13") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
-    (path "/433b4ed6-f448-474d-a562-648ba3a938d4"
+    (path "/712bcb6c-eb83-4484-b244-af7bd6a39522"
       (reference "C14") (unit 1) (value "C") (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm")
     )
     (path "/de4d5f14-39c4-427b-9878-9bf667cce5fc"
       (reference "J1") (unit 1) (value "Conn_02x08_Counter_Clockwise") (footprint "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical")
     )
-    (path "/31e08896-1992-4725-96d9-9d2728bca7a3"
-      (reference "U1") (unit 1) (value "AS6C4008-55PCN") (footprint "Package_DIP:DIP-32_W15.24mm")
-    )
     (path "/6cb565f7-6e97-4f1d-8096-70a857ae2e5a"
-      (reference "U2") (unit 1) (value "AS6C62256-55PCN") (footprint "Package_DIP:DIP-28_W15.24mm")
+      (reference "U1") (unit 1) (value "AS6C62256-55PCN") (footprint "Package_DIP:DIP-28_W15.24mm")
     )
-    (path "/2261878b-0f4a-4ac6-a78f-b2b6816b408c"
-      (reference "U3") (unit 1) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    (path "/31e08896-1992-4725-96d9-9d2728bca7a3"
+      (reference "U2") (unit 1) (value "AS6C4008-55PCN") (footprint "Package_DIP:DIP-32_W15.24mm")
     )
-    (path "/f0fd1413-053d-446f-b316-22141f8ad9e8"
-      (reference "U3") (unit 2) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    (path "/2ab0cdef-3157-4105-946f-bd107ad3a90b"
+      (reference "U3") (unit 1) (value "74HCT273") (footprint "Package_DIP:DIP-20_W7.62mm")
     )
-    (path "/5ed97d5a-ac0a-4372-b5a5-8d42a437b3b6"
-      (reference "U3") (unit 3) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/c06fcb34-4487-4291-ae1e-8815f7332940"
-      (reference "U3") (unit 4) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/1601cf31-01cf-485c-8f1f-797e3cdc752a"
-      (reference "U3") (unit 5) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/9d5ccb21-89b5-433c-ae5e-0c08463ea0a9"
-      (reference "U3") (unit 6) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/c69e2101-c2fe-4957-bf66-2b13826bd977"
-      (reference "U3") (unit 7) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    (path "/579f77ed-06cb-4636-90a8-76a0c0a9c3db"
+      (reference "U4") (unit 1) (value "74HCT273") (footprint "Package_DIP:DIP-20_W7.62mm")
     )
     (path "/b77e96c0-261d-4a2c-8886-f0bb93cb87c4"
-      (reference "U4") (unit 1) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/7549201d-c0de-43b7-a894-946c0e7015b0"
-      (reference "U4") (unit 2) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/b72a3816-1562-4b57-95a6-e7fe60a6e0a3"
-      (reference "U4") (unit 3) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/683cb3ed-1cd9-47d6-94c5-badcd07e30d8"
       (reference "U5") (unit 1) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
     )
-    (path "/322bbe7e-2df4-4b78-87ec-a4ecf7564d4b"
+    (path "/7549201d-c0de-43b7-a894-946c0e7015b0"
       (reference "U5") (unit 2) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
     )
-    (path "/f895145c-011f-4a90-bfe6-876425ec0b2e"
+    (path "/b72a3816-1562-4b57-95a6-e7fe60a6e0a3"
       (reference "U5") (unit 3) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
     )
-    (path "/97f29191-fc63-402a-96a7-b8716669ba7c"
-      (reference "U6") (unit 1) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    (path "/683cb3ed-1cd9-47d6-94c5-badcd07e30d8"
+      (reference "U6") (unit 1) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
     )
-    (path "/08efdab7-dd4d-415b-9a3b-b9ac8df00c19"
-      (reference "U6") (unit 2) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    (path "/322bbe7e-2df4-4b78-87ec-a4ecf7564d4b"
+      (reference "U6") (unit 2) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
     )
-    (path "/8158a8c7-2047-4572-9da9-601a5a2e6558"
-      (reference "U6") (unit 3) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/b11df38c-0641-401a-8fe8-5d38e62fd54b"
-      (reference "U6") (unit 4) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
-    )
-    (path "/80389ac3-5a6e-4b90-82b2-a7de70797361"
-      (reference "U6") (unit 5) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    (path "/f895145c-011f-4a90-bfe6-876425ec0b2e"
+      (reference "U6") (unit 3) (value "74HCT21") (footprint "Package_DIP:DIP-14_W7.62mm")
     )
     (path "/c0baf6cd-8272-4289-89d1-90a531e3cef9"
       (reference "U7") (unit 1) (value "74HCT08") (footprint "Package_DIP:DIP-14_W7.62mm")
@@ -7146,14 +7116,44 @@
     (path "/68c80305-d2bc-4447-aec2-359eb6fe75cc"
       (reference "U11") (unit 5) (value "74HCT32") (footprint "Package_DIP:DIP-14_W7.62mm")
     )
+    (path "/97f29191-fc63-402a-96a7-b8716669ba7c"
+      (reference "U12") (unit 1) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/08efdab7-dd4d-415b-9a3b-b9ac8df00c19"
+      (reference "U12") (unit 2) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/8158a8c7-2047-4572-9da9-601a5a2e6558"
+      (reference "U12") (unit 3) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/b11df38c-0641-401a-8fe8-5d38e62fd54b"
+      (reference "U12") (unit 4) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/80389ac3-5a6e-4b90-82b2-a7de70797361"
+      (reference "U12") (unit 5) (value "74HCT02") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/2261878b-0f4a-4ac6-a78f-b2b6816b408c"
+      (reference "U13") (unit 1) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/f0fd1413-053d-446f-b316-22141f8ad9e8"
+      (reference "U13") (unit 2) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/5ed97d5a-ac0a-4372-b5a5-8d42a437b3b6"
+      (reference "U13") (unit 3) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/c06fcb34-4487-4291-ae1e-8815f7332940"
+      (reference "U13") (unit 4) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/1601cf31-01cf-485c-8f1f-797e3cdc752a"
+      (reference "U13") (unit 5) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/9d5ccb21-89b5-433c-ae5e-0c08463ea0a9"
+      (reference "U13") (unit 6) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
+    (path "/c69e2101-c2fe-4957-bf66-2b13826bd977"
+      (reference "U13") (unit 7) (value "74HCT04") (footprint "Package_DIP:DIP-14_W7.62mm")
+    )
     (path "/69065d9e-ed61-46e0-9b22-4651709a6f1e"
-      (reference "U12") (unit 1) (value "74HCT138") (footprint "Package_DIP:DIP-16_W7.62mm")
-    )
-    (path "/2ab0cdef-3157-4105-946f-bd107ad3a90b"
-      (reference "U13") (unit 1) (value "74HCT273") (footprint "Package_DIP:DIP-20_W7.62mm")
-    )
-    (path "/579f77ed-06cb-4636-90a8-76a0c0a9c3db"
-      (reference "U14") (unit 1) (value "74HCT273") (footprint "Package_DIP:DIP-20_W7.62mm")
+      (reference "U14") (unit 1) (value "74HCT138") (footprint "Package_DIP:DIP-16_W7.62mm")
     )
   )
 )

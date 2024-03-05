@@ -24,15 +24,14 @@ J1 configures the write-only I/O port to one of, from top to bottom (A0 not deco
 |-|-|
 | U1 | AS6C62256 32K x 8 SRAM |
 | U2 | AS6C4008 512K x 8 SRAM |
-| U3 | 74HCT74 dual D-type flip-flop |
-| U4-U5 | 74HCT21 dual 4-input AND gate |
-| U6 | 74HCT02 quad NOR gate |
-| U7 | 74HCT04 hex inverter |
-| U8-U9 | 74HCT08 quad AND gate |
-| U10-U11 | 74HCT32 quad OR gate |
-| U12 | 74HCT138 3-to-8 line decoder |
-| U13 | 74HCT273 octal D-type flip-flop |
-| C1-C13 | 0.1uF disc/MLCC capacitor |
+| U3-U4 | 74HCT273 octal D-type flip-flop |
+| U5-U6 | 74HCT21 dual 4-input AND gate |
+| U7-U8 | 74HCT08 quad AND gate |
+| U9-U11 | 74HCT32 quad OR gate |
+| U12 | 74HCT02 quad NOR gate |
+| U13 | 74HCT04 hex inverter |
+| U14 | 74HCT138 3-to-8 line decoder |
+| C1-C14 | 0.1uF disc/MLCC capacitor |
 | J1 | 2x8 straight pin header |
 | BUS | 2x40 right angle pin header |
 

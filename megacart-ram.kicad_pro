@@ -49,7 +49,10 @@
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "copper_edge_clearance|252999961|151612583|c4bc13af-0d4f-43ac-b1fb-b6381ae8d5d5|63bb182f-d40e-476b-92e4-fb0d2b7c0fc0",
+        "courtyards_overlap|220991999|149812601|00000000-0000-0000-0000-0000574b3d79|00000000-0000-0000-0000-000057b2e630"
+      ],
       "meta": {
         "filename": "board_design_settings.json",
         "version": 2
