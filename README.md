@@ -10,30 +10,41 @@ The module is essentially a drop-in replacement for a standard [RC2014 64k RAM](
 
 The lower 32KB works exactly as in the standard module, including the page pin.
 
-Initially on power-up, the upper 32KB also works exactly as in the standard module. However, upper memory actually uses a 512KB RAM, which is divided into 32 16KB banks. Bank switching can be toggled for either the lower 16KB or the upper 16KB by writing to a configurable I/O port. Writing a 0 or 1 to D0 or D1 disables or enables bank switching on the lower 16KB or the upper 16KB, respectively. In other words, 0 disables bank switching, 1 enables it for the lower 16KB, and 2 enables it for the upper 16KB. (It is technically possible to enable bank switching for both ranges, but they will then both point at the same bank.)
+Initially on power-up, the upper 32KB also works exactly as in the standard module. However, upper memory actually uses a 512KB RAM, which is divided into 32 16KB banks. Bank switching can be toggled for either the lower 16KB or the upper 16KB by writing to a register on a configurable I/O port. Writing a 0 or 1 in D0 or D1 disables or enables bank switching on the lower 16KB or the upper 16KB, respectively. In other words, 0 disables bank switching, 1 enables it for the lower 16KB, and 2 enables it for the upper 16KB. (It is technically possible to enable bank switching for both ranges, but they will then both point at the same bank.) Writing a 1 in D2, D3, or D4 forces A16, A17, or A18 high, respectively, allowing the bank mirroring to work as in the 64KB/128KB/256KB MegaCarts for compatibility with those ROMs.
+
+The register values actually used by the loader program in this repository are:
+
+| Value | Bank Switching Enabled | ROM Size |
+|-------|------------------------|----------|
+|    0  |           no           |    any   |
+|    1  |       lower 16KB       |    any   |
+|    2  |       upper 16KB       |   512KB  |
+|   18  |       upper 16KB       |   256KB  |
+|   26  |       upper 16KB       |   128KB  |
+|   30  |       upper 16KB       |    64KB  |
 
 With bank switching enabled for one of these ranges, any read from one of the upper 32 addresses in the range (BFE0-BFFF for the lower 16KB, FFE0-FFFF for the upper 16KB) will page in the corresponding bank. By default (i.e. with bank switching disabled), for compatibility with the MegaCart, with banks numbered from 0 to 31, the lower 16KB uses bank 31, and the upper 16KB uses bank 0.
 
 On the ColecoVision MegaCart, bank switching is always enabled on the upper 16KB (bank 0 at boot), and the lower 16KB always points at bank 31. The additional functionality of this module allows it to be used as a normal 64KB of RAM (without strange effects from unwanted bank switching), and is also necessary to keep CP/M resident in upper memory while ROM files are read from disk and loaded into the other banks.
 
-J1 configures the write-only I/O port to one of, from top to bottom (A0 not decoded): 0E/0F, 2E/2F, 4E/4F, 6E/6F, 8E/8F, AE/AF, CE/CF, EE/EF.
+J1 configures the write-only register I/O port to one of, from top to bottom (A0 not decoded): 0E/0F, 2E/2F, 4E/4F, 6E/6F, 8E/8F, AE/AF, CE/CF, EE/EF.
 
 ## Bill of Materials
 
-| Reference | Part |
-|-|-|
-| U1 | AS6C62256 32K x 8 SRAM |
-| U2 | AS6C4008 512K x 8 SRAM |
-| U3-U4 | 74HCT273 octal D-type flip-flop |
-| U5-U6 | 74HCT21 dual 4-input AND gate |
-| U7-U8 | 74HCT08 quad AND gate |
-| U9-U11 | 74HCT32 quad OR gate |
-| U12 | 74HCT02 quad NOR gate |
-| U13 | 74HCT04 hex inverter |
-| U14 | 74HCT138 3-to-8 line decoder |
-| C1-C14 | 0.1uF disc/MLCC capacitor |
-| J1 | 2x8 straight pin header |
-| BUS | 2x40 right angle pin header |
+| Reference | Part                            |
+|-----------|---------------------------------|
+|     U1    | AS6C62256 32K x 8 SRAM          |
+|     U2    | AS6C4008 512K x 8 SRAM          |
+|   U3-U4   | 74HCT273 octal D-type flip-flop |
+|   U5-U6   | 74HCT21 dual 4-input AND gate   |
+|   U7-U8   | 74HCT08 quad AND gate           |
+|   U9-U11  | 74HCT32 quad OR gate            |
+|    U12    | 74HCT02 quad NOR gate           |
+|    U13    | 74HCT04 hex inverter            |
+|    U14    | 74HCT138 3-to-8 line decoder    |
+|   C1-C14  | 0.1uF disc/MLCC capacitor       |
+|     J1    | 2x8 straight pin header         |
+|    BUS    | 2x40 right angle pin header     |
 
 ## Building a RC2014 ColecoVision
 
