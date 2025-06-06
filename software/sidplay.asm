@@ -133,6 +133,24 @@ PLAY:
 
     ld      hl,$8000        ; playback start address
 
+PLAY_NEXT:
+    ld      de,(EOF_SLOT)   ; loop if not on the EOF slot
+    ld      c,e
+    ld      de,(SLOT)
+    ld      a,e
+    cp      c
+    jr      nz,PLAY_FRAME
+
+    ld      de,(DEST)       ; loop if not at the EOF address
+    ld      a,h
+    cp      d
+    jr      nz,PLAY_FRAME
+    ld      a,l
+    cp      e
+    jr      nz,PLAY_FRAME
+
+    jr      PLAY_END
+
 PLAY_FRAME:
     ld      e,(hl)          ; read bitfield (LSB)
     call    INC_ADDR
@@ -172,30 +190,9 @@ GROUP_SKIP:
 
 FRAME_END:
     call    DELAY
-
-    ld      de,(EOF_SLOT)   ; loop if not on the EOF slot
-    ld      c,e
-    ld      de,(SLOT)
-    ld      a,e
-    cp      c
-    jr      nz,PLAY_FRAME
-
-    ld      de,(DEST)       ; loop if not at the EOF address
-    ld      a,h
-    cp      d
-    jr      nz,PLAY_FRAME
-    ld      a,l
-    cp      e
-    jr      nz,PLAY_FRAME
+    jr      PLAY_NEXT
 
 PLAY_END:
-    ld      e,CR            ; print carriage return and linefeed
-    ld      c,WRITEC
-    call    BDOS
-    ld      e,LF
-    ld      c,WRITEC
-    call    BDOS
-
     ld      b,SID_REGS-1    ; playback complete, silence SID
 SILENCE:
     ld      a,b
