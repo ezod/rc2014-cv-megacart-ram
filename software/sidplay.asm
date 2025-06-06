@@ -161,6 +161,10 @@ FRAME_LOOP:
     ld      a,(hl)
     ld      hl,$8000        ; start at bottom of next slot
 
+    ld      e,'.'           ; print slot play character
+    ld      c,WRITEC
+    call    BDOS
+
 FRAME_END:
     ld      a,b
     cp      SID_REGS
@@ -182,6 +186,14 @@ FRAME_END:
     ld      a,l
     cp      e
     jr      nz,PLAY_FRAME
+
+PLAY_END:
+    ld      e,CR            ; print carriage return and linefeed
+    ld      c,WRITEC
+    call    BDOS
+    ld      e,LF
+    ld      c,WRITEC
+    call    BDOS
 
     ld      b,SID_REGS-1    ; playback complete, silence SID
 SILENCE:
@@ -213,7 +225,7 @@ BADFILE:
 
 NOFILE:     db  "file not found",CR,LF,EOS
 LOADING:    db  "loading file...",CR,LF,EOS
-SUCCESS:    db  "file loaded, playing",CR,LF,EOS
+SUCCESS:    db  "file loaded, playing...",CR,LF,EOS
 
 SLOT:       dw  1           ; slot pointer
 DEST:       dw  $8000       ; destination pointer
