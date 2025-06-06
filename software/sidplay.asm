@@ -14,6 +14,7 @@ BDOS:       equ 5           ; BDOS entry point
 FCB:        equ $5c         ; file control block
 FCBCR:      equ FCB+$20     ; FCB current record
 BUFF:       equ $80         ; DMA buffer
+CONIO:      equ 6           ; BDOS console I/O function
 WRITEC:     equ 2           ; BDOS print character function
 WRITESTR:   equ 9           ; BDOS print string function
 FOPEN:      equ 15          ; BDOS open file function
@@ -189,6 +190,14 @@ GROUP_SKIP:
     djnz    GROUP_LOOP
 
 FRAME_END:
+    push    hl
+    ld      c,CONIO
+    ld      e,$ff
+    call    BDOS
+    pop     hl
+    cp      'q'
+    jr      z,PLAY_END
+
     call    DELAY
     jr      PLAY_NEXT
 
