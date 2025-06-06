@@ -55,16 +55,15 @@ EOS:        equ '$'         ; end of string marker
     ret                     ; return to CP/M
 
 LOAD:
-    ld      hl,SLOTBASEL    ; initialize slot 1
-    inc     hl
-    ld      (SLOT),hl
-
     ld      de,LOADING      ; print loading message
     ld      c,WRITESTR
     call    BDOS
 
     ld      a,1             ; enable lower bank switching
     out     (MCRPORT),a
+
+    ld      hl,SLOTBASEL+1  ; initialize slot 1
+    ld      (SLOT),hl
 
 LOAD_OLOOP:
     ld      a,127           ; set record count to 127 (16KB minus one record)
@@ -127,8 +126,7 @@ LOAD_EOF:
     call    BDOS
 
 PLAY:
-    ld      hl,SLOTBASEL    ; initialize slot 1
-    inc     hl
+    ld      hl,SLOTBASEL+1  ; initialize slot 1
     ld      (SLOT),hl
 
     ld      hl,(SLOT)       ; set lower bank slot with dummy read
@@ -153,8 +151,8 @@ FRAME_LOOP:
     cp      $bf
     jr      nz,FRAME_END    ; h < $bf, continue
     ld      a,l
-    cp      $b0
-    jr      nz,FRAME_END    ; h = $bf and l < $b0, continue
+    cp      $80
+    jr      nz,FRAME_END    ; h = $bf and l < $80, continue
     ld      hl,(SLOT)       ; next slot
     inc     hl
     ld      (SLOT),hl
