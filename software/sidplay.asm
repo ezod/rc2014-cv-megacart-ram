@@ -28,6 +28,7 @@ SLOTBASEL:  equ $bfe0       ; slot 0 read address (lower)
 SID_ADDR    equ $d4         ; SID address port
 SID_DATA    equ $d5         ; SID data port
 SID_REGS    equ 25          ; number of SID registers
+SID_GRPS    equ 15          ; number of SID register groups
 
 CR:         equ $0d         ; carriage return
 LF:         equ $0a         ; line feed
@@ -133,35 +134,43 @@ PLAY:
     ld      hl,$8000        ; playback start address
 
 PLAY_FRAME:
-    ld      b,0             ; SID register index
+    ld      e,(hl)          ; read bitfield (LSB)
+    call    INC_ADDR
+    ld      d,(hl)          ;               (MSB)
+    call    INC_ADDR
 
-FRAME_LOOP:
-    ld      a,b             ; set current SID register index
+    ld      ix,GRP_START
+    ld      iy,GRP_LEN
+    ld      b,SID_GRPS
+
+GROUP_LOOP:
+    push    bc              ; preserve group counter
+
+    srl     d
+    rr      e
+    jr      nc,GROUP_SKIP   ; if bit not set, skip this group
+
+    ld      a,(ix)
+    ld      c,a             ; C = starting SID register
+    ld      a,(iy)
+    ld      b,a             ; B = length
+
+GROUP_WRITE:
+    ld      a,c
     out     (SID_ADDR),a
-
-    ld      a,(hl)          ; output SID register data
-    out     (SID_DATA),a
-
-    inc     b               ; next SID register
-
-    inc     hl              ; next data address
-    ld      a,h
-    cp      $bf
-    jr      nz,FRAME_END    ; h < $bf, continue
-    ld      a,l
-    cp      $80
-    jr      nz,FRAME_END    ; h = $bf and l < $80, continue
-    ld      hl,(SLOT)       ; next slot
-    inc     hl
-    ld      (SLOT),hl
     ld      a,(hl)
-    ld      hl,$8000        ; start at bottom of next slot
+    out     (SID_DATA),a
+    call    INC_ADDR
+    inc     c
+    djnz    GROUP_WRITE
+
+GROUP_SKIP:
+    inc     ix
+    inc     iy
+    pop     bc              ; restore group counter
+    djnz    GROUP_LOOP
 
 FRAME_END:
-    ld      a,b
-    cp      SID_REGS
-    jr      nz,FRAME_LOOP
-
     call    DELAY
 
     ld      de,(EOF_SLOT)   ; loop if not on the EOF slot
@@ -197,6 +206,21 @@ SILENCE:
 
     ret
 
+INC_ADDR:
+    inc     hl              ; next data address
+    ld      a,h
+    cp      $bf
+    ret     nz
+    ld      a,l
+    cp      $80
+    ret     nz
+    ld      hl,(SLOT)       ; next slot
+    inc     hl
+    ld      (SLOT),hl
+    ld      a,(hl)
+    ld      hl,$8000        ; start at bottom of next slot
+    ret
+
 DELAY:
     ld      d,66
 DELAY_OL:
@@ -218,6 +242,9 @@ BADFILE:
 NOFILE:     db  "file not found",CR,LF,EOS
 LOADING:    db  "loading file...",CR,LF,EOS
 SUCCESS:    db  "file loaded, playing...",CR,LF,EOS
+
+GRP_START:  db 0,2,4,5,7,9,11,12,14,16,18,19,21,23,24
+GRP_LEN:    db 2,2,1,2,2,2,1,2,2,2,1,2,2,1,1
 
 SLOT:       dw  1           ; slot pointer
 DEST:       dw  $8000       ; destination pointer
