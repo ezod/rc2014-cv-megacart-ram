@@ -139,15 +139,15 @@ PLAY_NEXT:
     ld      de,(SLOT)
     ld      a,e
     cp      c
-    jr      nz,PLAY_FRAME
+    jr      c,PLAY_FRAME
 
     ld      de,(DEST)       ; loop if not at the EOF address
     ld      a,h
     cp      d
-    jr      nz,PLAY_FRAME
+    jr      c,PLAY_FRAME
     ld      a,l
     cp      e
-    jr      nz,PLAY_FRAME
+    jr      c,PLAY_FRAME
 
     jr      PLAY_END
 
@@ -237,7 +237,7 @@ BADFILE:
     ret                     ; return to CP/M
 
 NOFILE:     db  "file not found",CR,LF,EOS
-LOADING:    db  "loading file...",CR,LF,EOS
+LOADING:    db  "loading file...",EOS
 SUCCESS:    db  "file loaded, playing...",CR,LF,EOS
 
 GRP_START:  db 0,2,4,5,7,9,11,12,14,16,18,19,21,23,24
