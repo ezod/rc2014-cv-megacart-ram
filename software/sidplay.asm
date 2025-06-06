@@ -128,9 +128,7 @@ LOAD_EOF:
 PLAY:
     ld      hl,SLOTBASEL+1  ; initialize slot 1
     ld      (SLOT),hl
-
-    ld      hl,(SLOT)       ; set lower bank slot with dummy read
-    ld      a,(hl)
+    ld      a,(hl)          ; set lower bank slot with dummy read
 
     ld      hl,$8000        ; playback start address
 
@@ -158,10 +156,6 @@ FRAME_LOOP:
     ld      (SLOT),hl
     ld      a,(hl)
     ld      hl,$8000        ; start at bottom of next slot
-
-    ld      e,'.'           ; print slot play character
-    ld      c,WRITEC
-    call    BDOS
 
 FRAME_END:
     ld      a,b
@@ -204,9 +198,9 @@ SILENCE:
     ret
 
 DELAY:
-    ld      d,71
+    ld      d,66
 DELAY_OL:
-    ld      e,71
+    ld      e,66
 DELAY_IL:
     dec     e               ; 4 cycles
     jr      nz,DELAY_IL     ; 10 cycles
