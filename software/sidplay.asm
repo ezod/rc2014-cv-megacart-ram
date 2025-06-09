@@ -109,7 +109,7 @@ LOAD_ILOOP:
     ld      c,FREAD
     call    BDOS
     or      a
-    jr      nz,LOAD_EOF
+    jp      nz,LOAD_EOF
 
     ld      hl,BUFF         ; copy from DMA buffer to destination
     ld      de,(DEST)
@@ -121,7 +121,7 @@ LOAD_ILOOP:
     ld      a,(RCOUNT)      ; read up to 16KB minus one record
     dec     a
     ld      (RCOUNT),a
-    jr      nz,LOAD_ILOOP
+    jp      nz,LOAD_ILOOP
 
     ld      e,'.'           ; print slot load character
     ld      c,WRITEC
@@ -171,10 +171,8 @@ PLAY:
     ld      hl,$8060        ; start of frame data
 
 PLAY_NEXT:
-    ld      de,(EOF_SLOT)   ; loop if not on the EOF slot
-    ld      c,e
-    ld      de,(SLOT)
-    ld      a,e
+    ld      bc,(EOF_SLOT)   ; loop if not on the EOF slot
+    ld      a,(SLOT)
     cp      c
     jr      c,PLAY_FRAME
 
@@ -186,7 +184,16 @@ PLAY_NEXT:
     cp      e
     jr      c,PLAY_FRAME
 
-    jr      PLAY_END
+PLAY_END:
+    ld      b,SID_REGS-1    ; playback complete, silence SID
+SILENCE:
+    ld      a,b
+    out     (SID_ADDR),a
+    xor     a
+    out     (SID_DATA),a
+    djnz    SILENCE
+
+    ret
 
 PLAY_FRAME:
     ld      e,(hl)          ; read bitfield (LSB)
@@ -203,10 +210,9 @@ GROUP_LOOP:
 
     srl     d
     rr      e
-    jr      nc,GROUP_SKIP   ; if bit not set, skip this group
+    jp      nc,GROUP_SKIP   ; if bit not set, skip this group
 
-    ld      a,(ix)
-    ld      c,a             ; C = starting SID register
+    ld      c,(ix)          ; C = starting SID register
     ld      a,(iy)
     ld      b,a             ; B = length
 
@@ -234,19 +240,17 @@ FRAME_END:
     cp      'q'
     jr      z,PLAY_END
 
-    call    DELAY
+DELAY:
+    ld      d,66
+DELAY_OL:
+    ld      e,66
+DELAY_IL:
+    dec     e               ; 4 cycles
+    jr      nz,DELAY_IL     ; 10 cycles
+    dec     d               ; 4 cycles
+    jp      nz,DELAY_OL     ; 10 cycles
+
     jr      PLAY_NEXT
-
-PLAY_END:
-    ld      b,SID_REGS-1    ; playback complete, silence SID
-SILENCE:
-    ld      a,b
-    out     (SID_ADDR),a
-    xor     a
-    out     (SID_DATA),a
-    djnz    SILENCE    
-
-    ret
 
 INC_ADDR:
     inc     hl              ; next data address
@@ -261,17 +265,6 @@ INC_ADDR:
     ld      (SLOT),hl
     ld      a,(hl)
     ld      hl,$8000        ; start at bottom of next slot
-    ret
-
-DELAY:
-    ld      d,66
-DELAY_OL:
-    ld      e,66
-DELAY_IL:
-    dec     e               ; 4 cycles
-    jr      nz,DELAY_IL     ; 10 cycles
-    dec     d               ; 4 cycles
-    jp      nz,DELAY_OL     ; 10 cycles
     ret
 
 PRINT_STRING:
