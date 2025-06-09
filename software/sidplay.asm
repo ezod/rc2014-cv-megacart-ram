@@ -1,13 +1,40 @@
 ; SID Dump Player for CP/M on RC2014
 ;
-; Loads a SID register dump (25 register bytes per frame @ 50hz) into the
-; MegaCart RAM module and plays it on a SID module.
+; Plays SID register dumps in the following format:
+;   - 3x 32 byte strings for title, author, and release
+;   - SID register frames captured at 50hz:
+;     - 2-byte bitfield indicating which register groups have changed
+;       since the last frame
+;     - the data for the changed register groups
+;
+; where the register groups are:
+;
+;   Bit   Registers       Function
+;   ---   ---------       --------
+;    0    $d400, $d401    frequency voice 1
+;    1    $d402, $d403    pulse wave duty cycle voice 1
+;    2    $d404           control register voice 1
+;    3    $d405, $d406    ADSR voice 1
+;    4    $d407, $d408    frequency voice 2
+;    5    $d409, $d40a    pulse wave duty cycle voice 2
+;    6    $d40b           control register voice 2
+;    7    $d40c, $d40d    ADSR voice 2
+;    8    $d40e, $d40f    frequency voice 3
+;    9    $d410, $d411    pulse wave duty cycle voice 3
+;   10    $d412           control register voice 3
+;   11    $d413, $d414    ADSR voice 3
+;   12    $d415, $d416    filter cutoff
+;   13    $d417           filter resonance and routing
+;   14    $d418           filter mode and main volume
 ;
 ; Use https://github.com/ezod/siddump with -b to dump a .sid file.
 ;
 ; Some RC2014 SID module options:
 ;     https://rc2014.co.uk/modules/sid-ulator-sound-module/
 ;     https://2014.samcoupe.com/#sidinterface
+;
+; This implementation depends on the MegaCart RAM module, but could be
+; modified to use other bank-switching RAM or limited to small files.
 
 BOOT:       equ 0           ; boot location
 BDOS:       equ 5           ; BDOS entry point
@@ -109,22 +136,13 @@ LOAD_ILOOP:
     jr      LOAD_OLOOP
 
 LOAD_EOF:
+    call    NEWLINE
+
     ld      de,(SLOT)       ; store EOF slot
     ld      (EOF_SLOT),de
 
-    ld      e,CR            ; print carriage return and linefeed
-    ld      c,WRITEC
-    call    BDOS
-    ld      e,LF
-    ld      c,WRITEC
-    call    BDOS
-
     ld      de,FCB          ; close the file
     ld      c,FCLOSE
-    call    BDOS
-
-    ld      de,SUCCESS      ; tell user that file was loaded
-    ld      c,WRITESTR
     call    BDOS
 
 PLAY:
@@ -132,7 +150,25 @@ PLAY:
     ld      (SLOT),hl
     ld      a,(hl)          ; set lower bank slot with dummy read
 
-    ld      hl,$8000        ; playback start address
+    ld      de,TITLE
+    ld      c,WRITESTR
+    call    BDOS
+    ld      hl,$8000
+    call    PRINT_STRING
+
+    ld      de,AUTHOR
+    ld      c,WRITESTR
+    call    BDOS
+    ld      hl,$8020
+    call    PRINT_STRING
+
+    ld      de,RELEASED
+    ld      c,WRITESTR
+    call    BDOS
+    ld      hl,$8040
+    call    PRINT_STRING
+
+    ld      hl,$8060        ; start of frame data
 
 PLAY_NEXT:
     ld      de,(EOF_SLOT)   ; loop if not on the EOF slot
@@ -238,6 +274,32 @@ DELAY_IL:
     jp      nz,DELAY_OL     ; 10 cycles
     ret
 
+PRINT_STRING:
+    ld      b,32            ; max 32 bytes
+PRINT_LOOP:
+    ld      a,(hl)          ; load next character
+    or      a               ; check for null terminator
+    jr      z,PRINT_END
+    ld      e,a
+    ld      c,WRITEC
+    push    hl
+    call    BDOS
+    pop     hl
+    inc     hl
+    djnz    PRINT_LOOP
+PRINT_END:
+    call    NEWLINE
+    ret
+
+NEWLINE:
+    ld      e,CR            ; print carriage return and linefeed
+    ld      c,WRITEC
+    call    BDOS
+    ld      e,LF
+    ld      c,WRITEC
+    call    BDOS
+    ret
+
 BADFILE:
     ld      de,NOFILE       ; print error if file is not found
     ld      c,WRITESTR
@@ -247,7 +309,10 @@ BADFILE:
 
 NOFILE:     db  "file not found",CR,LF,EOS
 LOADING:    db  "loading file...",EOS
-SUCCESS:    db  "file loaded, playing...",CR,LF,EOS
+
+TITLE:      db "Title     : ",EOS
+AUTHOR:     db "Author    : ",EOS
+RELEASED:   db "Released  : ",EOS
 
 GRP_START:  db 0,2,4,5,7,9,11,12,14,16,18,19,21,23,24
 GRP_LEN:    db 2,2,1,2,2,2,1,2,2,2,1,2,2,1,1
