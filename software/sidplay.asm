@@ -185,14 +185,14 @@ PLAY_NEXT:
     jr      c,PLAY_FRAME
 
 PLAY_END:
-    ld      b,SID_REGS-1    ; playback complete, silence SID
+    ld      b,SID_REGS      ; playback complete, silence SID
 SILENCE:
     ld      a,b
+    dec     a
     out     (SID_ADDR),a
     xor     a
     out     (SID_DATA),a
     djnz    SILENCE
-
     ret
 
 PLAY_FRAME:
