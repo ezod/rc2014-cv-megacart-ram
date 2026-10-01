@@ -5,6 +5,10 @@
 ;   - SID register frames captured at 50hz:
 ;     - 2-byte bitfield indicating which register groups have changed
 ;       since the last frame
+;     - if bit 15 of the bitfield is set, a byte whose bits 0-2 indicate
+;       which voices had their gate turned off and on again during the
+;       frame; the control register group for those voices is always
+;       included, and is written first with the gate cleared
 ;     - the data for the changed register groups
 ;
 ; where the register groups are:
@@ -26,6 +30,7 @@
 ;   12    $d415, $d416    filter cutoff
 ;   13    $d417           filter resonance and routing
 ;   14    $d418           filter mode and main volume
+;   15    (none)          voice retrigger byte follows bitfield
 ;
 ; Use https://github.com/ezod/siddump with -b to dump a .sid file.
 ;
@@ -57,6 +62,7 @@ SID_ADDR    equ $d4         ; SID address port
 SID_DATA    equ $d5         ; SID data port
 SID_REGS    equ 25          ; number of SID registers
 SID_GRPS    equ 15          ; number of SID register groups
+RETRIG_DLY  equ 32          ; gate-off hold loops (16 cycles each)
 
 CR:         equ $0d         ; carriage return
 LF:         equ $0a         ; line feed
@@ -201,6 +207,15 @@ PLAY_FRAME:
     ld      d,(hl)          ;               (MSB)
     call    INC_ADDR
 
+    xor     a               ; assume no retriggered voices
+    bit     7,d             ; retrigger byte present?
+    jr      z,NO_RETRIG
+    ld      c,(hl)          ; read retrigger byte
+    call    INC_ADDR
+    ld      a,c
+NO_RETRIG:
+    ld      (RETRIG),a
+
     ld      ix,GRP_START
     ld      iy,GRP_LEN
     ld      b,SID_GRPS
@@ -215,6 +230,19 @@ GROUP_LOOP:
     ld      c,(ix)          ; C = starting SID register
     ld      a,(iy)
     ld      b,a             ; B = length
+
+    ld      a,(RETRIG)      ; is this a retriggered control register?
+    and     (ix+GRP_VOICE-GRP_START)
+    jr      z,GROUP_WRITE
+    ld      a,c             ; write it with the gate cleared first
+    out     (SID_ADDR),a
+    ld      a,(hl)
+    and     $fe
+    out     (SID_DATA),a
+    ld      a,RETRIG_DLY    ; hold gate off briefly before turning it on
+RETRIG_WAIT:
+    dec     a
+    jr      nz,RETRIG_WAIT
 
 GROUP_WRITE:
     ld      a,c
@@ -250,7 +278,7 @@ DELAY_IL:
     dec     d               ; 4 cycles
     jp      nz,DELAY_OL     ; 10 cycles
 
-    jr      PLAY_NEXT
+    jp      PLAY_NEXT
 
 INC_ADDR:
     inc     hl              ; next data address
@@ -309,10 +337,12 @@ RELEASED:   db "Released  : ",EOS
 
 GRP_START:  db 0,2,4,5,7,9,11,12,14,16,18,19,21,23,24
 GRP_LEN:    db 2,2,1,2,2,2,1,2,2,2,1,2,2,1,1
+GRP_VOICE:  db 0,0,1,0,0,0,2,0,0,0,4,0,0,0,0
 
 SLOT:       dw  1           ; slot pointer
 DEST:       dw  $8000       ; destination pointer
 RCOUNT:     db  0           ; record counter
+RETRIG:     db  0           ; voices to retrigger in current frame
 EOF_SLOT    dw  1           ; EOF slot
 OLDSP:      dw  0           ; original stack pointer
             ds  $40         ; space for stack
